@@ -138,6 +138,30 @@ kubectl logs -f {pod-name}
 - echo –n 'mysql' | base64
 - echo –n 'mysql' | base64 --decode
 
+# Operating system update / kubeadm cluster upgrade
+
+## First remove the node from scheduling
+
+- kubectl drain node1
+- kubectl cordon node1
+
+## upgrade plan
+
+- kubeadm upgrade plan
+- kubeadm upgrade apply
+
+## Component upgrade
+
+- apt-get upgrade -y kubelet=1.12.0-0.0
+
+## After activity
+
+- kubectl uncordon node1
+
+# ETCD Snapshot Backup
+
+- ETCDCTL_API=3 etcdctl snapshot save snapshot.db
+
 # Ingress Controllers
 
 - nginx
